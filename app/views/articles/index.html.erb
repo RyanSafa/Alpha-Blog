@@ -13,6 +13,9 @@
                     <% if article.user %>
                         <i> <%= link_to article.user.username, user_path(article.user) %>  </i> 
                     <%end%>
+                    <% if article.categories.any? %>
+                        <div class="mt-2"> <%= render article.categories %> </div>               
+                    <%end%> 
                     </div>
                     <div class="card-body py-0 px-0">
                         <h5 class="card-title mt-2"><%= link_to article.tittle, article_path(article), class: 'text-success'%> </h5>
