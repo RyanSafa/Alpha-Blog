@@ -4,9 +4,6 @@
     <%= will_paginate @articles, :container => false %>
   </div>
 
-
-
-
 <div class="container">
     <% @articles.each do |article| %>
         <div class = "d-flex justify-content-center"> 
@@ -21,9 +18,13 @@
                         <h5 class="card-title mt-2"><%= link_to article.tittle, article_path(article), class: 'text-success'%> </h5>
                         <p class="card-text"><%=truncate(article.description, length: 100) %> </p>
                         <%= link_to "View", article_path(article), class: "btn btn-outline-success" %>
-                        <%= link_to "Edit", edit_article_path(article), class: "btn btn-outline-info" %>
-                        <%= link_to "Delete", article_path(article), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure?"} %>
-                        <div class="card-footer text-muted mt-2"> 
+                        <% if logged_in? && (article.user == current_user || current_user.admin?) %>
+                            <%= link_to "Edit", edit_article_path(article), class: "btn btn-outline-info" %>
+                            <%= link_to "Delete", article_path(article), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure?"} %>
+                        <%end%>
+                         <div class="card-footer text-muted mt-2"> 
+                       
+
                             <small> Created <%= time_ago_in_words(article.created_at)  %> ago, edited <%= time_ago_in_words(article.updated_at) %> ago</small>
                         </div>
                     </div>
